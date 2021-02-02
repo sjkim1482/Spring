@@ -1,13 +1,18 @@
 package kr.or.ddit.user.service;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import kr.or.ddit.common.model.PageVo;
 import kr.or.ddit.user.model.UserVo;
 import kr.or.ddit.user.repository.UserDao;
 
-@Service
+@Service("userService")
 public class UserServiceImpl implements UserService {
 
 	@Resource(name="userDao")
@@ -20,8 +25,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserVo getUser(String userid) {
-		return userDao.getUser(userid);
+	public UserVo selectUser(String userid) {
+		return userDao.selectUser(userid);
 	}
 
 	public UserDao getUserDao() {
@@ -30,6 +35,49 @@ public class UserServiceImpl implements UserService {
 
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
+	}
+	
+	@Override
+	public List<UserVo> selectAllUser() {
+		// TODO Auto-generated method stub
+		return userDao.selectAllUser();
+	}
+	
+	
+	@Override
+	public Map<String, Object> selectPagingUser(PageVo vo) {
+		Map<String, Object> map = new HashMap<String,Object>();
+		
+		List<UserVo> userList = userDao.selectPagingUser(vo);
+		int userCnt = userDao.selectAllUserCount();
+		
+		map.put("userList", userList);
+		map.put("userCnt", userCnt);
+		return map;
+	}
+
+	@Override
+	public int modifyUser(UserVo userVo) {
+		// TODO Auto-generated method stub
+		return userDao.modifyUser(userVo);
+	}
+
+	@Override
+	public int registUser(UserVo userVo) {
+		// TODO Auto-generated method stub
+		return userDao.registUser(userVo);
+	}
+
+	@Override
+	public int deleteUser(String userid) {
+		// TODO Auto-generated method stub
+		return userDao.deleteUser(userid);
+	}
+
+	@Override
+	public int selectAllUserCount() {
+		// TODO Auto-generated method stub
+		return userDao.selectAllUserCount();
 	}
 	
 }

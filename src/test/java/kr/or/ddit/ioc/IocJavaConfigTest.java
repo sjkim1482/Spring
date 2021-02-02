@@ -6,14 +6,23 @@ import javax.annotation.Resource;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import kr.or.ddit.ioc.config.IocJavaConfig;
+import kr.or.ddit.test.comfig.WebTestConfig;
 import kr.or.ddit.user.service.UserService;
 
+
+
+/*@ContextConfiguration(locations = {"classpath:/kr/or/ddit/config/spring/application-context.xml",
+		"classpath:/kr/or/ddit/config/spring/root-context.xml",
+		"classpath:/kr/or/ddit/config/spring/datasource-context.xml",
+		"classpath:/kr/or/ddit/ioc/component-scan.xml"})*/
 @ContextConfiguration(classes = {IocJavaConfig.class})
 @RunWith(SpringJUnit4ClassRunner.class)
+@ComponentScan(basePackages = {"kr.or.ddit"})
 public class IocJavaConfigTest {
 	
 	@Resource(name="userServiceCons")

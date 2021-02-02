@@ -28,7 +28,7 @@ public class IocMain {
 		//context: 컨테이너
 		UserDao userDao = (UserDao)context.getBean("userDao");
 		
-		UserVo userVo = userDao.getUser("brown");
+		UserVo userVo = userDao.selectUser("brown");
 		
 		logger.debug("userVo : {}", userVo);
 		
@@ -36,7 +36,7 @@ public class IocMain {
 		//getUser 메소드를 call, 반환된 값(userVo)을 logget를 통해 출력
 		
 		UserService userService = (UserService)context.getBean("userService");
-		UserVo userVo1 = userService.getUser("brown");
+		UserVo userVo1 = userService.selectUser("brown");
 		
 		logger.debug("userVo : {}", userVo1);
 		

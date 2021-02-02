@@ -10,9 +10,11 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import kr.or.ddit.test.comfig.WebTestConfig;
+
 @ContextConfiguration("classpath:/kr/or/ddit/ioc/ioc.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
-public class CollectionBeanTest {
+public class CollectionBeanTest extends WebTestConfig{
 
 	//collectionBean 스프링 빈이 정상적으로 생성 되었는지
 	@Resource(name="collectionBean")
