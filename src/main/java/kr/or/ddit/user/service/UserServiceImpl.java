@@ -48,11 +48,16 @@ public class UserServiceImpl implements UserService {
 	public Map<String, Object> selectPagingUser(PageVo vo) {
 		Map<String, Object> map = new HashMap<String,Object>();
 		
-		List<UserVo> userList = userDao.selectPagingUser(vo);
-		int userCnt = userDao.selectAllUserCount();
+	
 		
-		map.put("userList", userList);
-		map.put("userCnt", userCnt);
+		//map.put("pageVo", vo);
+		map.put("userList", userDao.selectPagingUser(vo));
+		map.put("userCnt", userDao.selectAllUserCount());
+		
+//		int userCnt = userDao.selectAllUserCount();
+//		map.put("pagination", (int)Math.ceil((double)userCnt/vo.getPageSize()));
+		
+		//map.put("pagination", (int)Math.ceil((double)((int)map.get("userCnt"))/vo.getPageSize()));
 		return map;
 	}
 

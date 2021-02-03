@@ -10,5 +10,14 @@
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
 	</context:component-scan>
-
+	
+	<!-- messageSource 등록 이름 messageSource로 정해짐 국제코드는 번들로 저장되어서 error까지만 써주면 뒤에는 알아서 다들어옴-->
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>classpath:/kr/or/ddit/msg/error/error</value>
+				<value>classpath:/kr/or/ddit/msg/msg/msg</value>
+			</list>
+		</property>
+	</bean>
 </beans>

@@ -8,6 +8,7 @@
   	   resultType : 한 행의 정보를 저장할 수 있는 클래스 타입을 명시 -->
   <select id="selectAllUser" resultType="userVo">
     SELECT * FROM users
+    ORDER BY userid
   </select>
   
   <select id="selectUser" parameterType="String" resultType="userVo">
@@ -38,14 +39,14 @@
   
   <update id="modifyUser" parameterType="userVo">
   	UPDATE users 
-  	SET usernm = #{usernm}, pass = #{pass}, reg_dt = #{reg_dt}, alias = #{alias}, addr1=#{addr1},
+  	SET usernm = #{usernm}, pass = #{pass}, reg_dt = SYSDATE, alias = #{alias}, addr1=#{addr1},
                  addr2 = #{addr2}, zipcode = #{zipcode}, filename =#{filename}, realfilename = #{realfilename}
 	WHERE userid = #{userid}
   </update>
   
   <insert id="registUser" parameterType="userVo">
   	INSERT INTO users(userid,usernm,pass,reg_dt,alias,addr1,addr2,zipcode,filename,realfilename) 
-  	VALUES(#{userid},#{usernm},#{pass},#{reg_dt},#{alias},#{addr1},#{addr2},#{zipcode},#{filename},#{realfilename})
+  	VALUES(#{userid},#{usernm},#{pass},SYSDATE,#{alias},#{addr1},#{addr2},#{zipcode},#{filename},#{realfilename})
   </insert>
   
   <delete id="deleteUser" parameterType="String">

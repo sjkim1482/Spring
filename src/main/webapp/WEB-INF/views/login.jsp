@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -17,6 +18,8 @@
     
     <!-- Custom styles for this template -->
     <link href="${cp}/css/signin.css" rel="stylesheet">
+   
+    
 	<script>
 	
 		function getCookieValue(cookieStr, cookieName){
@@ -53,6 +56,20 @@
 			addCookie(cookieName,"",-1)
 		}
 		$(function() {
+			
+			<c:if test="${msg != null}">
+				alert("${msg}"+ "ra");
+		    </c:if>
+			
+		/* 	
+			if("${msg}"!= ""){
+				alert("${msg}"+ "c:remove");
+				<c:remove var="msg"/>
+				
+			}
+				 */
+			
+			
 			//userid, rememberme 쿠키를 확인하여 존재할 경우 값설정, 체크
 			if(Cookies.get('rememberme')=="Y"){
 				$("#userid").val(Cookies.get('userid'))
