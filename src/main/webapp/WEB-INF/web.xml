@@ -13,7 +13,9 @@
   <context-param>
   	<param-name>contextConfigLocation</param-name>
   	<param-value>classpath:/kr/or/ddit/config/spring/root-context.xml
-  				 classpath:/kr/or/ddit/config/spring/datasource-context.xml</param-value>
+  				 classpath:/kr/or/ddit/config/spring/datasource-context.xml
+  	</param-value>
+  	<!--   				 classpath:/kr/or/ddit/config/spring/aop-context.xml -->
   </context-param>
   
   <listener>
@@ -26,6 +28,7 @@
   	<init-param>
   		<param-name>contextConfigLocation</param-name>
   		<param-value>classpath:/kr/or/ddit/config/spring/application-context.xml
+  					 
   					 <!-- classpath:/kr/or/ddit/config/spring/interceptor-context.xml -->
   		</param-value>
   	</init-param>
