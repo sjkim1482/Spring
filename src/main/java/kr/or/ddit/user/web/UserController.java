@@ -198,7 +198,8 @@ public class UserController {
 	public String registUser() {
 		
 		
-		return "user/registUser";
+		
+		return "tiles.user.registUser";
 	}
 	
 	
@@ -315,9 +316,134 @@ public class UserController {
 		//tiles-definition에 설정한 name
 		return "tiles.user.pagingUser";
 	}
-	///////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////
+	//사용자 리스트가 없는 상태의 화면만 응답으로 생성
+	@RequestMapping("pagingUserAjaxView")
+	public String pagingUserAjaxView() {
+		return "tiles.user.pagingUserAjax";
+	}
 	
 	
+	///////////////////////////////////////////////////////////////
+	
+	@RequestMapping("pagingUserAjax")
+	public String pagingUserAjax(PageVo pageVo,Model model) {
+		
+		Map<String, Object> map = userService.selectPagingUser(pageVo);
+		
+		List<UserVo> userList = (List<UserVo>)map.get("userList");
+		int userCnt = (int)map.get("userCnt");
+		logger.debug("userCnt : {}" ,userCnt);
+		logger.debug("pageVo.getPageSize() : {}" ,pageVo.getPageSize());
+		int pagination = (int)Math.ceil((double)userCnt/pageVo.getPageSize());
+		
+		model.addAttribute("userList", userList);
+		model.addAttribute("pagination", pagination);
+		model.addAttribute("pageVo", pageVo);
+		
+		
+
+		int startPage = 1;
+		int endPage = pagination;
+		if((pageVo.getPage()-2)>2) {
+			if(pageVo.getPage()==pagination||pageVo.getPage()==pagination-1||pageVo.getPage()==pagination-3) {
+				startPage = pagination-4;
+				
+			}else{
+				startPage = pageVo.getPage()-2;
+			}
+			if(startPage+4<pagination) {
+				endPage = startPage+4;
+			}
+		}
+		logger.debug("start : {}",startPage);
+		if((pageVo.getPage()+2)<pagination-1) {
+			if(pageVo.getPage()==1) {
+				endPage = pageVo.getPage()+4;
+			}else if(pageVo.getPage() == 2) {
+				endPage = pageVo.getPage()+3;
+			}else if(pageVo.getPage() == 4){
+				endPage = pageVo.getPage()+1;
+			}else {
+				endPage = pageVo.getPage()+2;
+			}
+			if(endPage-4>pageVo.getPage()) {
+				startPage = endPage-4;
+			}
+		}
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("endPage", endPage);
+		
+		
+		
+		//tiles-definition에 설정한 name
+		return "jsonView";
+	}
+	
+	////////////////////////////////////////////////////////////////////
+	//HTML 로 전달
+	
+	@RequestMapping("pagingUserAjaxHtml")
+	public String pagingUserAjaxHtml(PageVo pageVo,Model model) {
+		
+		Map<String, Object> map = userService.selectPagingUser(pageVo);
+		
+		List<UserVo> userList = (List<UserVo>)map.get("userList");
+		int userCnt = (int)map.get("userCnt");
+		logger.debug("userCnt : {}" ,userCnt);
+		logger.debug("pageVo.getPageSize() : {}" ,pageVo.getPageSize());
+		int pagination = (int)Math.ceil((double)userCnt/pageVo.getPageSize());
+		
+		model.addAttribute("userList", userList);
+		model.addAttribute("pagination", pagination);
+		model.addAttribute("pageVo", pageVo);
+		
+		
+
+		int startPage = 1;
+		int endPage = pagination;
+		if((pageVo.getPage()-2)>2) {
+			if(pageVo.getPage()==pagination||pageVo.getPage()==pagination-1||pageVo.getPage()==pagination-3) {
+				startPage = pagination-4;
+				
+			}else{
+				startPage = pageVo.getPage()-2;
+			}
+			if(startPage+4<pagination) {
+				endPage = startPage+4;
+			}
+		}
+		logger.debug("start : {}",startPage);
+		if((pageVo.getPage()+2)<pagination-1) {
+			if(pageVo.getPage()==1) {
+				endPage = pageVo.getPage()+4;
+			}else if(pageVo.getPage() == 2) {
+				endPage = pageVo.getPage()+3;
+			}else if(pageVo.getPage() == 4){
+				endPage = pageVo.getPage()+1;
+			}else {
+				endPage = pageVo.getPage()+2;
+			}
+			if(endPage-4>pageVo.getPage()) {
+				startPage = endPage-4;
+			}
+		}
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("endPage", endPage);
+		
+		
+		
+		//tiles-definition에 설정한 name
+		return "user/pagingUserAjaxHtml";
+		
+		/*0,1둘다 탈락
+		  pagingUserAjaxHtml ==> /WEB-INF/view/user/pagingUserAjaxHtml.jsp 
+		 */
+	}
+	
+	
+	
+	///////////////////////////////////////////////////////////////
 	@RequestMapping("pagingUser")
 	public String paingUser(PageVo pageVo,Model model) {
 		
